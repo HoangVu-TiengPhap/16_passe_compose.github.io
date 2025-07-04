@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2025 by anonymous (http://jsbin.com/zuzasetiru/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Điền Từ: Passé Composé / Imparfait</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            padding: 30px 40px;
+        }
+
+        .quiz-header {
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 16px;
+            color: #555;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        #score-container {
+            background-color: #e67e22;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .special-chars-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 20px;
+            padding: 15px 10px;
+            border-bottom: 1px solid #e9ecef;
+            border-radius: 10px;
+        }
+
+        .char-btn {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .char-btn:hover {
+            background-color: #e0e0e0;
+        }
+        .char-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .paragraph-container {
+            font-size: 1.2rem;
+            line-height: 3.2;
+            color: #34495e;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            border: 1px solid #e9ecef;
+            border-bottom: none;
+        }
+        
+        .translation-container {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 0 0 8px 8px;
+            border: 1px solid #e9ecef;
+            border-top: 1px dashed #ccc;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .verb-input {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1rem;
+            border: none;
+            border-bottom: 2px solid #3498db;
+            padding: 4px 6px;
+            text-align: center;
+            width: 130px;
+            transition: all 0.2s ease-in-out;
+            background-color: transparent;
+        }
+        .verb-input:focus {
+            outline: none;
+            border-bottom: 2px solid #e67e22;
+        }
+        .verb-input.correct {
+            border-bottom-color: #2ecc71;
+            color: #2ecc71;
+        }
+        .verb-input.incorrect {
+            border-bottom-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .feedback-span {
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+        .feedback-span .correct-answer {
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        .feedback-explanation {
+            font-size: 1rem;
+            color: #34495e;
+            background-color: #e8f4fd;
+            border-left: 4px solid #0366d6;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+            line-height: 1.7;
+        }
+        
+        .feedback-explanation strong {
+            font-size: 1.1rem;
+        }
+
+        .check-all-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #e67e22, #d35400);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 30px;
+        }
+        .check-all-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <header class="quiz-header">
+            <h1>Bài Tập Kể Chuyện: Sophie ở quán cà phê</h1>
+            <div class="info-bar">
+                <span>Enseignant: <strong>Nguyễn Hoàng Vũ</strong></span>
+                <div id="score-container">
+                    Điểm: <span id="score-value">0/30</span>
+                </div>
+            </div>
+        </header>
+
+        <form id="quiz-form" onsubmit="return false;">
+            <p style="text-align: center; font-style: italic; color: #555; margin-bottom: 20px;">
+                Hoàn thành câu chuyện sau bằng cách chia các động từ trong ngoặc ở thì Passé Composé hoặc Imparfait.
+            </p>
+
+            <div id="special-chars" class="special-chars-bar">
+                <button type="button" class="char-btn">à</button>
+                <button type="button" class="char-btn">â</button>
+                <button type="button" class="char-btn">é</button>
+                <button type="button" class="char-btn">è</button>
+                <button type="button" class="char-btn">ê</button>
+                <button type="button" class="char-btn">ë</button>
+                <button type="button" class="char-btn">î</button>
+                <button type="button" class="char-btn">ï</button>
+                <button type="button" class="char-btn">ô</button>
+                <button type="button" class="char-btn">û</button>
+                <button type="button" class="char-btn">ù</button>
+                <button type="button" class="char-btn">ç</button>
+            </div>
+
+            <div class="paragraph-container">
+                Sophie <input type="text" id="q1_verb1" class="verb-input" placeholder="(être)"> <span class="feedback-span" id="q1_feedback1"></span> au café. Elle <input type="text" id="q1_verb2" class="verb-input" placeholder="(écrire)"> <span class="feedback-span" id="q1_feedback2"></span> une lettre d'amour. Elle <input type="text" id="q1_verb3" class="verb-input" placeholder="(rêver)"> <span class="feedback-span" id="q1_feedback3"></span>, elle <input type="text" id="q1_verb4" class="verb-input" placeholder="(songer)"> <span class="feedback-span" id="q1_feedback4"></span>, elle <input type="text" id="q1_verb5" class="verb-input" placeholder="(choisir)"> <span class="feedback-span" id="q1_feedback5"></span> ses expressions, puis elle <input type="text" id="q1_verb6" class="verb-input" placeholder="(mettre)"> <span class="feedback-span" id="q1_feedback6"></span> son stylo dans ses cheveux et <input type="text" id="q1_verb7" class="verb-input" placeholder="(réfléchir)"> <span class="feedback-span" id="q1_feedback7"></span>. Elle <input type="text" id="q1_verb8" class="verb-input" placeholder="(devoir)"> <span class="feedback-span" id="q1_feedback8"></span> faire une belle lettre, il <input type="text" id="q1_verb9" class="verb-input" placeholder="(falloir)"> <span class="feedback-span" id="q1_feedback9"></span> trouver les mots justes, mais elle ne <input type="text" id="q1_verb10" class="verb-input" placeholder="(pouvoir)"> <span class="feedback-span" id="q1_feedback10"></span> pas, elle ne <input type="text" id="q1_verb11" class="verb-input" placeholder="(savoir)"> <span class="feedback-span" id="q1_feedback11"></span> pas exprimer les impressions qu'elle <input type="text" id="q1_verb12" class="verb-input" placeholder="(ressentir)"> <span class="feedback-span" id="q1_feedback12"></span>. Elle <input type="text" id="q1_verb13" class="verb-input" placeholder="(partir)"> <span class="feedback-span" id="q1_feedback13"></span> dans les nuages, elle <input type="text" id="q1_verb14" class="verb-input" placeholder="(être)"> <span class="feedback-span" id="q1_feedback14"></span> sur une autre planète. Soudain, le garçon <input type="text" id="q1_verb15" class="verb-input" placeholder="(arriver)"> <span class="feedback-span" id="q1_feedback15"></span>, il lui <input type="text" id="q1_verb16" class="verb-input" placeholder="(demander)"> <span class="feedback-span" id="q1_feedback16"></span> ce qu'elle <input type="text" id="q1_verb17" class="verb-input" placeholder="(vouloir)"> <span class="feedback-span" id="q1_feedback17"></span>. Elle <input type="text" id="q1_verb18" class="verb-input" placeholder="(redescendre)"> <span class="feedback-span" id="q1_feedback18"></span> sur terre : « Un Perrier ». Il <input type="text" id="q1_verb19" class="verb-input" placeholder="(partir)"> <span class="feedback-span" id="q1_feedback19"></span> et il <input type="text" id="q1_verb20" class="verb-input" placeholder="(revenir)"> <span class="feedback-span" id="q1_feedback20"></span> très vite. Il <input type="text" id="q1_verb21" class="verb-input" placeholder="(servir)"> <span class="feedback-span" id="q1_feedback21"></span> Sophie, elle <input type="text" id="q1_verb22" class="verb-input" placeholder="(prendre)"> <span class="feedback-span" id="q1_feedback22"></span> son verre et <input type="text" id="q1_verb23" class="verb-input" placeholder="(boire)"> <span class="feedback-span" id="q1_feedback23"></span> rapidement. Elle <input type="text" id="q1_verb24" class="verb-input" placeholder="(mettre)"> <span class="feedback-span" id="q1_feedback24"></span> un billet sur la table, le garçon <input type="text" id="q1_verb25" class="verb-input" placeholder="(rendre)"> <span class="feedback-span" id="q1_feedback25"></span> la monnaie, puis elle <input type="text" id="q1_verb26" class="verb-input" placeholder="(repartir)"> <span class="feedback-span" id="q1_feedback26"></span> dans les nuages. Finalement, elle <input type="text" id="q1_verb27" class="verb-input" placeholder="(écrire)"> <span class="feedback-span" id="q1_feedback27"></span> sa lettre.
+            </div>
+            <div class="translation-container">
+                Sophie (ở) quán cà phê. Cô ấy (đang viết) một lá thư tình. Cô ấy (mơ mộng), cô ấy (trầm tư), cô ấy (lựa chọn) câu chữ, rồi cô ấy (đặt) cây bút lên tóc và (suy ngẫm). Cô ấy (phải) viết một lá thư thật hay, (cần) phải tìm những từ ngữ phù hợp, nhưng cô ấy không (thể), cô ấy không (biết) cách diễn tả những ấn tượng mà cô ấy (cảm thấy). Cô ấy (đang lơ đãng), cô ấy (đang ở) trên một hành tinh khác. Bỗng nhiên, cậu bồi bàn (đến), cậu ấy (hỏi) cô ấy (muốn) gì. Cô ấy (trở về) mặt đất: "Một chai Perrier". Cậu ấy (rời đi) và (quay lại) rất nhanh. Cậu ấy (phục vụ) Sophie, cô ấy (cầm) ly của mình và (uống) một cách nhanh chóng. Cô ấy (đặt) một tờ tiền lên bàn, cậu bồi bàn (trả lại) tiền thừa, rồi cô ấy (lại lơ đãng). Cuối cùng, cô ấy (viết) xong lá thư của mình.
+            </div>
+            <div class="feedback-explanation" id="q1_explanation"></div>
+            
+            <button id="check-all-btn" class="check-all-btn">Kiểm tra tất cả</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const solution = {
+                blanks: {
+                    q1_verb1: 'était',
+                    q1_verb2: 'écrivait',
+                    q1_verb3: 'rêvait',
+                    q1_verb4: 'songeait',
+                    q1_verb5: 'choisissait',
+                    q1_verb6: 'mettait',
+                    q1_verb7: 'réfléchissait',
+                    q1_verb8: 'devait',
+                    q1_verb9: 'fallait',
+                    q1_verb10: 'ne pouvait',
+                    q1_verb11: 'ne savait',
+                    q1_verb12: 'ressentait',
+                    q1_verb13: 'partait',
+                    q1_verb14: 'était',
+                    q1_verb15: 'est arrivé',
+                    q1_verb16: 'a demandé',
+                    q1_verb17: 'voulait',
+                    q1_verb18: 'est redescendue',
+                    q1_verb19: 'est parti',
+                    q1_verb20: 'est revenu',
+                    q1_verb21: 'a servi',
+                    q1_verb22: 'a pris',
+                    q1_verb23: 'a bu',
+                    q1_verb24: 'a mis',
+                    q1_verb25: 'a rendu',
+                    q1_verb26: 'est repartie',
+                    q1_verb27: 'a écrit'
+                },
+                 explanation: `
+                    <strong>Phân tích:</strong><br>
+                    - <strong>Hành động chính, đơn lẻ, hoàn tất (Passé Composé):</strong> <i>a mis, a réfléchi</i> (chuỗi hành động ngắt quãng sự mơ màng), <i>est arrivé</i> (sự kiện bất ngờ), <i>a demandé, est redescendue, est parti, est revenu, a servi, a pris, a bu, a mis, a rendu, est repartie, a écrit</i> (chuỗi các sự kiện chính, liên tiếp nhau).<br>
+                    - <strong>Bối cảnh, miêu tả, trạng thái (Imparfait):</strong> <i>était, écrivait, rêvait, songeait, choisissait</i> (mô tả bối cảnh và hành động nền), <i>devait, fallait, ne pouvait, ne savait, ressentait</i> (trạng thái tinh thần, cảm xúc, khả năng), <i>partait, était</i> (miêu tả trạng thái mơ màng), <i>voulait</i> (ý muốn của Sophie).
+                `
+            };
+            
+            const totalBlanks = 27; // Counted from the HTML structure
+
+            const checkButton = document.getElementById('check-all-btn');
+            const scoreValueElement = document.getElementById('score-value');
+            scoreValueElement.textContent = `0/${totalBlanks}`;
+            let currentScore = 0;
+            let lastActiveInput = null;
+
+            // --- Logic for Special Character Buttons ---
+            const charButtons = document.querySelectorAll('.char-btn');
+            const verbInputs = document.querySelectorAll('.verb-input');
+
+            verbInputs.forEach(input => {
+                input.addEventListener('focus', (event) => {
+                    lastActiveInput = event.target;
+                });
+            });
+            
+            charButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (lastActiveInput && !lastActiveInput.disabled) {
+                        const charToInsert = button.textContent;
+                        const input = lastActiveInput;
+                        const startPos = input.selectionStart;
+                        const endPos = input.selectionEnd;
+                        const originalValue = input.value;
+                        
+                        input.value = originalValue.substring(0, startPos) + charToInsert + originalValue.substring(endPos);
+                        
+                        const newPos = startPos + 1;
+                        input.selectionStart = newPos;
+                        input.selectionEnd = newPos;
+                        input.focus();
+                    }
+                });
+            });
+
+
+            // --- Logic for Checking Answers ---
+            checkButton.addEventListener('click', () => {
+                currentScore = 0;
+                
+                const explanationElement = document.getElementById('q1_explanation');
+                
+                Object.keys(solution.blanks).forEach(blankId => {
+                    const inputElement = document.getElementById(blankId);
+                    if (!inputElement) return;
+                    
+                    const feedbackElement = document.getElementById(blankId.replace('verb', 'feedback'));
+                    const userAnswer = inputElement.value.trim();
+                    const correctAnswer = solution.blanks[blankId];
+
+                    let correctAnswers = Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer];
+
+                    if (correctAnswers.map(ans => ans.toLowerCase()).includes(userAnswer.toLowerCase())) {
+                        currentScore++;
+                        inputElement.value = correctAnswers[0]; 
+                        inputElement.classList.add('correct');
+                        feedbackElement.innerHTML = '✔️';
+                    } else {
+                        inputElement.classList.add('incorrect');
+                        feedbackElement.innerHTML = `❌ <span class="correct-answer">${correctAnswers[0]}</span>`;
+                    }
+                    inputElement.disabled = true;
+                });
+                
+                explanationElement.innerHTML = solution.explanation;
+                explanationElement.style.display = 'block';
+
+                scoreValueElement.textContent = `${currentScore}/${totalBlanks}`;
+                checkButton.disabled = true;
+            });
+        });
+    </script>
+</body>
+</html>
